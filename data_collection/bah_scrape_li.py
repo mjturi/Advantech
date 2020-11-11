@@ -30,9 +30,9 @@ def bot():
 
     # enter login info
     user = driver.find_element_by_xpath('/html/body/div/main/div[2]/form/div[1]/input')
-    user.send_keys('matthewturi7@gmail.com')
+    user.send_keys('EMAIL')
     pswd = driver.find_element_by_xpath('/html/body/div/main/div[2]/form/div[2]/input')
-    pswd.send_keys('Drummer2001$')
+    pswd.send_keys('PASSWORD')
 
     # submit form, try catch because it was having issues finding the button by a single absolute path
     try:
@@ -240,9 +240,9 @@ def bot():
 
     # enter login info
     user = driver.find_element_by_xpath('/html/body/div/main/div[2]/form/div[1]/input')
-    user.send_keys('matthewturi7@gmail.com')
+    user.send_keys('EMAIL')
     pswd = driver.find_element_by_xpath('/html/body/div/main/div[2]/form/div[2]/input')
-    pswd.send_keys('Drummer2001$')
+    pswd.send_keys('PASSWORD')
 
     # submit form, try catch because it was having issues finding the button by a single absolute path
     try:
