@@ -17,10 +17,7 @@ def bot():
 
     driver.get('https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin')
     time.sleep(1)
-    #
-    # # find + click signin
-    # driver.find_element_by_xpath('/html/body/nav/div/a').click()
-    # time.sleep(1)
+
 
     # enter login info
     user = driver.find_element_by_xpath('/html/body/div/main/div[2]/form/div[1]/input')
