@@ -6,7 +6,7 @@ from fake_useragent import UserAgent
 from selenium.webdriver.common.keys import Keys
 import pandas as pd
 
-# Function definition for entire bot process
+# Function definition for entire bot process, allows it to be called if scheduling is necessary
 def bot():
     names = []
     abouts = []
