@@ -1,13 +1,12 @@
+# necessary imports
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 import time
 import os
 import schedule
 
-# Function definition for entire bot process
-from selenium.webdriver.common.keys import Keys
-
-
+# Function definition for entire bot process - allows for scheduling
 def bot():
     options = Options()
     options.binary_location = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
@@ -22,16 +21,16 @@ def bot():
 
     # login
     email = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/div/input')
-    email.send_keys('EMAIL')
+    email.send_keys('EMAIL') # replace with user credentials
 
     driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/span/input[1]').click()
     time.sleep(1)
 
     pswd = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/div[2]/input')
-    pswd.send_keys('PASSWORD')
+    pswd.send_keys('PASSWORD') # replace with user credentials
 
     driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/span/input[1]').click()
-    time.sleep(2)
+    time.sleep(2) # click login
 
     try:
         driver.find_element_by_xpath('/html/body/div[12]/div/button').click()
@@ -39,15 +38,15 @@ def bot():
         print('No welcome message')
 
     search = driver.find_element_by_xpath('/html/body/div[1]/header/div[2]/div[2]/div[2]/form/div/input')
-    search.send_keys('leidos' + Keys.ENTER)
+    search.send_keys('leidos' + Keys.ENTER) # search for specific keywords. Change leidos here to whatever is necessary
     time.sleep(10)
-    driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div[11]/div[2]/ul/li[1]/a[2]').click()
+    driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div[11]/div[2]/ul/li[1]/a[2]').click() # this sets incumbent contarctor as leidos for a search field
     time.sleep(10)
-    driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/div[1]/ul[2]/li[1]/ul/li/a').click()
+    driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/div[1]/ul[2]/li[1]/ul/li/a').click() # this removes keywords
     time.sleep(10)
     link_count = 2
     main_window = driver.current_window_handle
-    while True:
+    while True: # loop to go into each conract, check location and date, and if in range and in SD or unspecified, flag the op. Will loop through for a while, best to manually exit
         cur = driver.find_element_by_xpath('/html/body/div[4]/div[3]/div[1]/div/div[5]/div[5]/div/div['+ str(link_count) + ']/h3/a')
         cur.send_keys(Keys.CONTROL + Keys.RETURN)
         driver.switch_to.window(driver.window_handles[1])
