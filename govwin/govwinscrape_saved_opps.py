@@ -1,3 +1,4 @@
+# necessary imports
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
@@ -19,13 +20,13 @@ def bot():
 
     #login
     email = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/div/input')
-    email.send_keys('EMAIL')
+    email.send_keys('EMAIL') # replace with user credentials
 
     driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/span/input[1]').click()
     time.sleep(1)
 
     pswd = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/div[2]/input')
-    pswd.send_keys('PASSWORD')
+    pswd.send_keys('PASSWORD') # replace with user credentials
 
     driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/form/div/span/input[1]').click()
     time.sleep(2)
@@ -43,6 +44,7 @@ def bot():
     time.sleep(1)
 
     opp_count = 1
+    # interested criteria list
     criteria = ['Industry Day', 'Industry Day attendees list', 'Vendors List', 'Event Attachments', 'Contractors List',
                 'Interested Parties List', 'Registration List', 'Participants Lists', 'Attendees Lists', 'Attendee',
                 'Interested Companies', 'Bidders List', 'Industry Day Procurement List']
@@ -50,7 +52,7 @@ def bot():
     main_window = driver.current_window_handle
 
     while True:
-        try:
+        try: # naviagte to your opportunites, and start iterating through them, then execute the same checks as the nonsaved ops bot
             opp = driver.find_element_by_xpath('/html/body/div[4]/div[4]/div/div[3]/div/div/div[3]/form/div/div/div[3]/div/div[2]/table/tbody/tr[' + str(opp_count) + ']/td[6]/a')
             opp.send_keys(Keys.CONTROL + Keys.RETURN)
             driver.switch_to.window(driver.window_handles[1])
