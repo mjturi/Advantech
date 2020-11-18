@@ -1,3 +1,4 @@
+# necessary imports
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
@@ -26,9 +27,9 @@ def bot():
 
     # enter login info
     user = driver.find_element_by_xpath('/html/body/div/main/div[2]/form/div[1]/input')
-    user.send_keys('EMAIL')
+    user.send_keys('EMAIL') # replace with user credentials
     pswd = driver.find_element_by_xpath('/html/body/div/main/div[2]/form/div[2]/input')
-    pswd.send_keys('PASSWORD')
+    pswd.send_keys('PASSWORD')  # replace with user credentials
 
     # submit form, try catch because it was having issues finding the button by a single absolute path
     try:
@@ -51,11 +52,9 @@ def bot():
         print('No auth needed')
 
     page_tracker = 1
-    page_stop = 11
-    link_stop = 10
 
-    # boolean li query, must first search in google then copy search address
-    site = 'https://www.google.com/search?q=site:www.linkedin.com+intitle:linkedin+%22vice+president+-+booz+allen%22+-intitle:answers+-intitle:updated+-intitle:blog+-intitle:directory+-inurl:jobs+-inurl:megite.com&ei=yEt7X_v0N-H99AO3tqoQ&start=230&sa=N&ved=2ahUKEwj7-InJ8Z3sAhXhPn0KHTebCgI43AEQ8NMDegQIDBBB&biw=1920&bih=969'
+    # boolean li query, must first search in google then copy search address (fill site var)
+    site = ''
     driver.get(site)
 
     # main loop for handling bot
@@ -70,22 +69,14 @@ def bot():
 
         data = driver.find_elements_by_partial_link_text('linkedin.com')
 
-        for data[link_counter] in data:
-            # if link_counter > link_stop and page_tracker == page_stop:
-            #     break
-            data = driver.find_elements_by_partial_link_text('linkedin.com')
+        for data[link_counter] in data: # opens each person in new tab
             data[link_counter].send_keys(Keys.CONTROL + Keys.RETURN)
 
             driver.switch_to.window(driver.window_handles[1])
 
             time.sleep(2)
 
-            # LOCATIONS WERE CHANGING DUE TO VPN...as of now it is not necessary to use a vpn unless office traffic is high
-            # '/html/body/div[7?]/div[3]/div/div/div/div/div[2]/main/div[1]/section/div[2]/div[2]/div[1]/ul[1]/li[1]'
-
-            # Block to figure out their name: if both attempts fail, go to essentially end of task loop and resume
-            # process or move on to next page
-            try:
+            try: # block to find their name in linkedin profile, if unable to, move on to next person from search
                 con_name = driver.find_element_by_xpath(
                     '/html/body/div[7]/div[3]/div/div/div/div/div[2]/main/div[1]/section/div[2]/div[2]/div[1]/ul[1]/li[1]')
             except Exception:
@@ -101,17 +92,6 @@ def bot():
                     link_counter += 1
                     time.sleep(1)
                     continue
-                    # if page_tracker < 30:
-                    #     time.sleep(2.5 * 60)
-                    #     driver.find_element_by_xpath(
-                    #         '/html/body/div[8]/div[2]/div[10]/div[1]/div[2]/div/div[5]/div[2]/span[1]/div/table/tbody/tr/td[12]/a/span[2]').click()
-                    #     page_tracker += 1
-                    #     time.sleep(1)
-                    #     main_window = driver.current_window_handle
-                    #     continue
-                    # else:
-                    #     driver.quit()
-                    #     break
 
             # block for splicing connection name, obtaining first name only
             con_name = str(con_name.text)
@@ -128,8 +108,8 @@ def bot():
 
             print(con_name)
 
-            if len(con_name) < 16:
-                # Try catch for different linkedin headers
+            if len(con_name) < 16: # if their FIRST NAME is longer than 16 characters, its probably wrong so don't send anything
+                # Try catch for different linkedin headers to find the conect with a amessage box
                 try:
                     driver.find_element_by_xpath(
                         '/html/body/div[7]/div[3]/div/div/div/div/div[2]/main/div[1]/section/div[2]/div[1]/div[2]/div/div/span[1]/div/button').click()
@@ -187,8 +167,8 @@ def bot():
             time.sleep(1)
 
         # block to continue to next page on google search, <num pages to go through. Default cap is 25, change here if less is desired
-        if page_tracker < 190: #page_stop: # 30:
-            time.sleep(2.5 * 60)
+        if page_tracker < 25: 
+            time.sleep(2 * 60) # pause to avoid google and linkedin captchas
             driver.find_element_by_xpath(
                 '/html/body/div[8]/div[2]/div[10]/div[1]/div[2]/div/div[5]/div[2]/span[1]/div/table/tbody/tr/td[12]/a/span[2]').click()
             page_tracker += 1
@@ -199,22 +179,3 @@ def bot():
             break
 bot()
 
-# schedule.every().day.at("04:00").do(bot)
-# failed = False
-# while True:
-#     try:
-#         schedule.run_pending()
-#     except Exception:
-#         Popen('taskkill /F /IM chrome.exe', shell=True)
-#         print('failed')
-#         failed = True
-#         time.sleep(10)
-#         while failed:
-#             try:
-#                 schedule.run_all()
-#                 failed = False
-#             except Exception:
-#                 Popen('taskkill /F /IM chrome.exe', shell=True)
-#                 print('failed')
-#                 time.sleep(10)
-#     time.sleep(60)
