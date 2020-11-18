@@ -1,3 +1,4 @@
+# necessary imports
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
@@ -5,22 +6,12 @@ from selenium.webdriver.common.keys import Keys
 import time
 import os
 
+# main function for bot, allows for scheduling
 def bot():
-    # This is Scotty + Isabel's POC list
-    IDS = ['heffernan_tobias@bah.com', 'shearer_jennifer@bah.com', '"Tammy Paight"', 'munoz_frank@bah.com', 'noppenberger_derek@bah.com', '"Kim Lynch"', 'carmelite_betsy@bah.com', '"Lara Chiaurro"', '"Christopher Enriquez"', '"Carrie Ross"', '"Cliff Weber"', '"Catherine Breeze"', '"Steven Moore"', 'dave_docherty@bah.com', 'yao_felix@bah.com', 'gotherman_jeff@bah.com', '"Patrick Ward"', 'williams_anthony2@bah.com', 'newcomb_robert@bah.com', '"Elizabeth Nathaniel"', '"Eric Raffett"', '"Dan Breithenbach"', '"Elizabeth Warner"', 'riolo_joseph@bah.com', 'pastore_dennis@bah.com', '"Cameron Mayer"', '"Chris Bogdan"', '"Travis Bird"'] # need a list of criteria to start searching through
-    # This is Tatsu + Jac's List
-    # IDS = ['tiffany_frye@bah.com',
-    # 'david_donovan@bah.com',
-    # 'ron_berry@bah.com',
-    # 'dave_geerdes@bah.com',
-    # 'geoff_haney@bah.com',
-    # 'eric_oitzman@bah.com',
-    # 'holly_stowell@bah.com',
-    # 'charles_wilson@bah.com']
-    # This is my list
-    for op in IDS:
+    IDS = [] # lsit of identifiers for people - names, emails, etc.
+    for op in IDS: # loop through ids
         directory = op.replace('"', '')
-        parent_dir = 'C:/Users/Matt Turi/Desktop/'
+        parent_dir = '' # specify download directory here
 
 
         path = os.path.join(parent_dir, directory)
@@ -31,7 +22,6 @@ def bot():
 
         # DRIVER WITH SET DOWNLOAD LOCATION
         options = Options()
-        # options.add_argument('--incognito')
         options.binary_location = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
         driver_path = "C:/Users/Matt Turi/Downloads/chromedriver_win32/chromedriver.exe"
         prefs = {"plugins.always_open_pdf_externally": True, 'download.default_directory': str(path)}
@@ -42,7 +32,8 @@ def bot():
         driver.maximize_window()
 
         main_window = driver.current_window_handle
-
+        
+        # search through google, download documents that come up besides the leaked bah sheet
         new_op = op + " filetype:pdf"
         driver.get("https://www.google.com/")
 
@@ -64,8 +55,5 @@ def bot():
                 links.pop(0)
                 time.sleep(2)
         driver.close()
-
-
-
 
 bot()
