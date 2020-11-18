@@ -1,3 +1,4 @@
+# this file is extremely similar to the v1, with some slight improvements as well as an updated message with linkes to a li post and website.
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
