@@ -47,3 +47,6 @@
    - *page_con.py*
    - Used BAH criteria
    - **Results:** The script worked great, went through and invited BAH employees in the specified position until our monthly invite limit was reached. 
+- Script to filter through existing Linkedin connections and hunt for certain criteria in their personal page. Currently, it looks through their title, about, and experience sections. If they meet the criteria (or it matches), the script will send them an invitation to follow our LinkedIn page.
+   - *pagecon_v2.py*
+   - **Results:** The script executes perfectly, with interchangeable criteria that  allows us to drill down further than the provided filters from LinkedIn on the connections page. 
