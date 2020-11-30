@@ -3,6 +3,7 @@
 ## Some of the scripts I have written for data collection, data cleaning/merging, and recruiting
 
 ### Each of these "bots" are simple python scripts. In order to run them, one must have python 3.7 or above installed on their machine, as well as these dependencies installed: pandas, numpy, selenium, fake_useragent, and webdriver_manager.chrome. To install these, simply run a pip install ----(dependency name) command within the terminal. Then to run the script, navigate to the directory with the files and run the chosen script (python scriptname.py).
+---
 
 ### Data Collection
 - Script to search through booz allen website and save their company employee information to a csv. 
