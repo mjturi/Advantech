@@ -2,6 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 import time
 import os
@@ -23,10 +24,9 @@ def bot():
         # DRIVER WITH SET DOWNLOAD LOCATION
         options = Options()
         options.binary_location = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
-        driver_path = "C:/Users/Matt Turi/Downloads/chromedriver_win32/chromedriver.exe"
         prefs = {"plugins.always_open_pdf_externally": True, 'download.default_directory': str(path)}
         options.add_experimental_option('prefs', prefs)
-        driver = webdriver.Chrome(options=options, executable_path=driver_path)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         actions = ActionChains(driver)
 
         driver.maximize_window()
