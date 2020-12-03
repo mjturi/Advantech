@@ -58,7 +58,7 @@ def bot():
             date = str(date).split(' (')[0]
             date = int(date)
 
-            if date > 2019:
+            if date > 2019 and date < 2023:
                 driver.find_element_by_xpath('/html/body/div[4]/div[4]/div/div[1]/ul/li[7]/a').click()
                 time.sleep(2)
                 driver.find_element_by_xpath(
