@@ -11,9 +11,7 @@ def bot():
     options = Options()
     options.add_argument('--incognito')
     options.binary_location = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
-    driver_path = "C:/Users/Matt Turi/Downloads/chromedriver_win32/chromedriver.exe"
-    #driver = webdriver.Chrome(options=options, executable_path=driver_path)
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     actions = ActionChains(driver)
     driver.maximize_window()
 
