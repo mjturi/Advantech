@@ -38,7 +38,7 @@
    - *govwin_flag_ops.py*
    - **Results:** This script worked great, had no issues executing this simple task. Fields can also be narrowed down for later reuse. 
 - Script to automate that "advertise your interest" in Govwin for various opportunities. Fields by various provided criteria such as NAICS codes and populates the form for any ops within the next 2 years.
-   -*govwin_entry.py*
+   - *govwin_entry.py*
    - **Results:** Yet to run the actual script for extended time period.
 
 ### LinkedIn
