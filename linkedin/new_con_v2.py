@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
 import time
+from webdriver_manager.chrome import ChromeDriverManager
 from fake_useragent import UserAgent
 from selenium.webdriver.common.keys import Keys
 
@@ -11,8 +12,7 @@ def bot():
     options = Options()
     options.add_argument('--incognito')
     options.binary_location = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
-    driver_path = "C:/Users/Matt Turi/Downloads/chromedriver_win32/chromedriver.exe"
-    driver = webdriver.Chrome(options=options, executable_path=driver_path)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
     driver.maximize_window()
 
