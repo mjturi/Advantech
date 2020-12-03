@@ -1,5 +1,6 @@
 # necessary imports
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import time
 import os
@@ -32,10 +33,9 @@ def bot():
         options = Options()
         # options.add_argument('--incognito')
         options.binary_location = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
-        driver_path = "C:/Users/Matt Turi/Downloads/chromedriver_win32/chromedriver.exe"
         prefs = {'download.default_directory': str(path)}
         options.add_experimental_option('prefs', prefs)
-        driver = webdriver.Chrome(options=options, executable_path=driver_path)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
         driver.maximize_window()
 
