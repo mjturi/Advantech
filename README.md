@@ -39,7 +39,7 @@
    - **Results:** This script worked great, had no issues executing this simple task. Fields can also be narrowed down for later reuse. 
 - Script to automate that "advertise your interest" in Govwin for various opportunities. Fields by various provided criteria such as NAICS codes and populates the form for any ops within the next 2 years.
    - *govwin_entry.py*
-   - **Results:** Yet to run the actual script for extended time period.
+   - **Results:** Ran through govwin with initial set of NAICS codes, posted 1,067 advertisements for Advantech teaming interest. 
 
 ### LinkedIn
 - Script to add new connections with a personalized connect message. The script executes a login to a LinkedIn profile, performs a backend LinkedIn query with given criteria, and will go through each person (up to a specified end), grab their names, and send a personalized connection message. 
