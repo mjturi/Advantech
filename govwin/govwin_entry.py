@@ -37,14 +37,31 @@ def bot():
     except Exception:
         print('No welcome message')
 
-    # can be incumbent, NAICS code, primary requirement, etc
-    NAICS = ['541330','541519','541611','236220','334511','334516','335999','517311','518210','541210','541219','541511','541512','541513','541612','541614','541620','541690','541710','541712','541715','541820','541990','561110','561210','562111','562910','611430','611710','621111','621511','811219']
+    # can be incumbent, NAICS code, primary requirement, etc'
+    #'541710', '541712', '541715', '541820', '541990', '561110',
+    NAICS = ['561210', '562111', '562910', '611430', '611710', '621111', '621511', '811219', '541330', '541519',
+             '541611', '236220', '334511', '334516', '335999', '517311', '518210', '541210', '541219', '541511',
+             '541512', '541513', '541612', '541614', '541620', '541690']
+
+    num_ads = 0
+
+    first = False
 
     for code in NAICS:
+        print(code)
         search = driver.find_element_by_xpath('/html/body/div[1]/header/div[2]/div[2]/div[2]/form/div/input')
         search.send_keys(code + Keys.ENTER)
         link_count = 2
         main_window = driver.current_window_handle
+        if first:
+            link_count = 91
+            driver.find_element_by_xpath(
+                '/html/body/div[4]/div[3]/div[1]/div/div[5]/div[5]/div/div[1]/div[1]/div/div/a[2]').click()
+            time.sleep(5)
+            driver.find_element_by_xpath(
+                '/html/body/div[4]/div[3]/div[1]/div/div[5]/div[5]/div/div[1]/div[1]/div/div/a[3]').click()
+            time.sleep(15)
+            first = False
 
         while True:
             cur = driver.find_element_by_xpath(
@@ -61,8 +78,23 @@ def bot():
             if 2019 < date < 2023:
                 driver.find_element_by_xpath('/html/body/div[4]/div[4]/div/div[1]/ul/li[7]/a').click()
                 time.sleep(2)
-                driver.find_element_by_xpath(
+                try:
+                    driver.find_element_by_xpath(
                     '/html/body/div[4]/div[4]/div/div[9]/div/div/div[3]/div/div/div[2]/div[1]/div/a[1]').click()
+                except Exception:
+                    try:
+                        driver.find_element_by_xpath('/html/body/div[4]/div[4]/div[2]/div[1]/ul/li[6]/a').click()
+                        driver.find_element_by_xpath('/html/body/div[4]/div[4]/div[2]/div[9]/div/div/div[3]/div/div/div[2]/div[1]/div/a[1]').click()
+                    except Exception:
+                        try:
+                            driver.find_element_by_xpath('/html/body/div[4]/div[4]/div[2]/div[8]/div/div/div[3]/div/div/div[2]/div[1]/div/a[1]').click()
+                            time.sleep(2)
+                        except Exception:
+                            driver.close()
+                            driver.switch_to.window(main_window)
+                            link_count += 1
+                            continue
+
                 time.sleep(1)
                 tagline = driver.find_element_by_xpath(
                     '/html/body/div[7]/div[1]/div[2]/div[2]/div[1]/div/form/table/tbody/tr[2]/td/input')
@@ -96,7 +128,7 @@ def bot():
                 title.send_keys('Talent Acquisition & Development Manager')
 
                 phone.clear()
-                # phone.send_keys('')
+                phone.send_keys('(858) 832-8127 ext. 1')
 
                 # email.clear()
                 # email.send_keys('test')
@@ -108,18 +140,37 @@ def bot():
                 driver.find_element_by_xpath(
                     '/html/body/div[7]/div[1]/div[2]/div[2]/div[1]/div/form/table/tbody/tr[9]/td/select/option[3]').click()
 
-                capabilities.send_keys('HUBZone specializing in engineering, technical, and professional services \nIT/Cybersecurity: Advantech cybersecurity and intelligence experts provide organizations with timely access to high-quality actionable data from disparate sources to accelerate analysis, response and situational awareness. \nProgram/Business Management: Advantech delivers a variety of program and business management services to support customers in meeting their requirements, managing and sustaining their programs within budget, and accomplishing their missions. \nEngineering: Advantech delivers a variety of program and business management services to support customers in meeting their requirements, managing and sustaining their programs within budget, and accomplishing their missions.')
+                capabilities.send_keys(
+                    'HUBZone specializing in engineering, technical, and professional services \nIT/Cybersecurity: Advantech cybersecurity and intelligence experts provide organizations with timely access to high-quality actionable data from disparate sources to accelerate analysis, response and situational awareness. \nProgram/Business Management: Advantech delivers a variety of program and business management services to support customers in meeting their requirements, managing and sustaining their programs within budget, and accomplishing their missions. \nEngineering: Advantech delivers a variety of program and business management services to support customers in meeting their requirements, managing and sustaining their programs within budget, and accomplishing their missions.')
 
-                driver.find_element_by_xpath('/html/body/div[7]/div[1]/div[2]/div[2]/div[1]/div/form/div[1]/input').click()
-            else:
+                driver.find_element_by_xpath(
+                    '/html/body/div[7]/div[1]/div[2]/div[2]/div[1]/div/form/div[1]/input').click()
+
+                num_ads += 1
+
+
+            elif date < 2020:
                 driver.close()
-                driver.switch_to(main_window)
-                link_count = 2
+                driver.switch_to.window(main_window)
                 break
 
             driver.close()
-            driver.switch_to(main_window)
+            driver.switch_to.window(main_window)
             link_count += 1
+
+            # if time for a new page...
+            if link_count > 100:
+                link_count = 2
+                try:
+                    driver.find_element_by_xpath('/html/body/div[4]/div[3]/div[1]/div/div[5]/div[5]/div/div[102]/div/div/div/a[2]').click()
+                except Exception:
+                    try:
+                        driver.find_element_by_xpath('/html/body/div[4]/div[3]/div[1]/div/div[5]/div[5]/div/div[1]/div[1]/div/div/a[3]').click()
+                    except Exception:
+                        driver.find_element_by_xpath('/html/body/div[4]/div[3]/div[1]/div/div[5]/div[5]/div/div[102]/div/div/div/a[3]').click()
+                        time.sleep(15)
+
+    print(str(num_ads) + " is the total")
 
 
 bot()
